@@ -5,25 +5,20 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from './components/ui/select';
 import { Button } from './components/ui/button';
 import ChessBoard from './ components/ChessBoard';
-import { IChessNode, IPosition } from './interfaces/ChessNode';
+import { IChessNode } from './interfaces/ChessNode';
 import { ChessBoardModel } from './models/ChessBoard';
 import { KnightModel } from './models/Knight';
-import { Console } from 'console';
 import { KnightService } from './services/KnightService';
 import KnightLog from './ components/KnightLog';
-import { Alert, AlertDescription, AlertTitle } from './components/ui/alert';
-import { Rocket, TriangleAlert } from 'lucide-react';
+import { Alert, AlertTitle } from './components/ui/alert';
+import { TriangleAlert } from 'lucide-react';
 
 const App: React.FC = () => {
-  const [knightPositions, setKnightPositions] = useState<
-    IPosition | undefined
-  >();
   const [boardSize, setBoardSize] = useState<number>(8);
   const [algorithm, setAlgorithm] = useState<string>();
   const [board, setBoard] = useState<ChessBoardModel | null>(null);
@@ -67,10 +62,9 @@ const App: React.FC = () => {
       const moveKnight = () => {
         if (!knight.isKnightTrapped()) {
           knightService.moveKnightUsingBFS();
-          setKnightPositions(knight.getCurrentPosition().getPosition());
           setPossibleMoves(knight.getPossibleMoves());
 
-          setTimeout(moveKnight, 500); // Delay de 500ms para ver o movimento
+          setTimeout(moveKnight, 500);
         }
       };
 

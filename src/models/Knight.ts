@@ -1,4 +1,4 @@
-import { IAdjacentNodes, IChessNode, IPosition } from '@/interfaces/ChessNode';
+import { IChessNode } from '@/interfaces/ChessNode';
 import { IKnight } from '@/interfaces/Knight';
 import { ChessBoardModel } from './ChessBoard';
 import { IChessEdge } from '@/interfaces/ChessEdge';
