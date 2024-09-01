@@ -47,17 +47,17 @@ const ChessSquare = (props: ChessSquareProps) => {
   return (
     <div
       onClick={handleClick}
-      className={`flex justify-center items-center w-16 h-16 cursor-pointer ${handleColor()}`}
+      className={`flex justify-center items-center w-8 h-8 xl:w-16 xl:h-16 cursor-pointer ${handleColor()}`}
     >
       {isCurrentPosition ? (
         <span
-          className={`text-5xl ${isBlack ? 'text-zinc-100' : 'text-zinc-900'}`}
+          className={`text-3xl xl:text-5xl ${isBlack ? 'text-zinc-100' : 'text-zinc-900'}`}
         >
           ♞
         </span>
       ) : node.isVisited() ? (
         <span
-          className={`text-2xl ${isBlack ? 'text-zinc-100' : 'text-zinc-900'}`}
+          className={`text-xl xl:text-2xl ${isBlack ? 'text-zinc-100' : 'text-zinc-900'}`}
         >
           X
         </span>

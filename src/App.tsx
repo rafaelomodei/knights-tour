@@ -54,6 +54,8 @@ const App: React.FC = () => {
   }, [boardSize]);
 
   const handleCLickStart = () => {
+    if (started) return window.location.reload();
+
     setStarted(true);
 
     if (algorithm === 'BreadthFirstSearch' && knight) {
@@ -75,15 +77,15 @@ const App: React.FC = () => {
   const handleAlert = () => {
     if (!clickPosition)
       return (
-        <Alert className='w-72 mb-4 flex '>
-          <TriangleAlert className='h-4 w-4 items-center justify-center' />
+        <Alert className='w-fit mb-4 flex text-sm'>
+          <TriangleAlert className='h-4 w-4' />
           <AlertTitle>Selecione uma casa para iniciar!</AlertTitle>
         </Alert>
       );
 
     if (!algorithm)
       return (
-        <Alert className='w-72 mb-4 flex '>
+        <Alert className='w-fit mb-4 flex text-sm'>
           <TriangleAlert className='h-4 w-4 items-center justify-center' />
           <AlertTitle>Selecione um algoritimo!</AlertTitle>
         </Alert>
@@ -91,14 +93,14 @@ const App: React.FC = () => {
 
     if (!started && algorithm && clickPosition)
       return (
-        <Alert className='w-72 mb-4 flex '>
+        <Alert className='w-fit mb-4 flex text-sm'>
           <TriangleAlert className='h-4 w-4 items-center justify-center' />
           <AlertTitle>Clique no botão iniciar</AlertTitle>
         </Alert>
       );
 
     return (
-      <Alert className='w-fit mb-4 flex '>
+      <Alert className='w-fit mb-4 flex text-sm'>
         <span className={` leading-4 text-lg text-zinc-100 pr-2`}>♞</span>
         <AlertTitle>É hora da cavalgada!</AlertTitle>
       </Alert>
@@ -106,10 +108,10 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className='min-h-screen flex items-center justify-center gap-32 bg-zinc-950 text-white'>
+    <div className='min-h-screen flex items-center justify-center gap-16 xl:gap-32 bg-zinc-950 text-white flex-col xl:flex-row p-8'>
       <div className='flex flex-col gap-8'>
-        <h1 className='text-3xl font-bold'>Problema do cavalo</h1>
-        <p className='max-w-lg'>
+        <h1 className='text-xl xl:text-3xl font-bold'>Problema do cavalo</h1>
+        <p className='max-w-lg text-sm xl:text-md'>
           O problema do cavalo, ou passeio do cavalo, é um problema matemático
           envolvendo o movimento da peça do cavalo no tabuleiro de xadrez. O
           cavalo é colocado no tabuleiro vazio e, seguindo as regras do jogo,
@@ -117,20 +119,22 @@ const App: React.FC = () => {
           consecutivos.
         </p>
 
-        <div className='w-full border-t border-gray-600 my-4' />
+        <div className='w-full border-t border-gray-600 my-1  xl:my-4' />
 
         {!started ? (
           <>
-            <h2 className='text-2xl font-bold'>Configurações</h2>
+            <h2 className='text-lg xl:text-2xl  font-bold'>Configurações</h2>
 
-            <div className='flex gap-8 justify-between'>
+            <div className='flex gap-8 justify-between flex-col xl:flex-row'>
               <div className='flex flex-col gap-2'>
-                <h2 className='font-bold'>Tamanho do Tabuleiro</h2>
+                <h2 className='font-bold text-sm xl:text-lg'>
+                  Tamanho do Tabuleiro
+                </h2>
                 <Select
                   value={`${boardSize}`}
                   onValueChange={(value) => setBoardSize(Number(value))}
                 >
-                  <SelectTrigger className='w-52'>
+                  <SelectTrigger className='w-full xl:w-52 '>
                     <SelectValue placeholder='Tamanho' />
                   </SelectTrigger>
                   <SelectContent>
@@ -146,9 +150,11 @@ const App: React.FC = () => {
               </div>
 
               <div className='flex flex-col gap-2'>
-                <h2 className='font-bold'>Selecione o algoritmo</h2>
+                <h2 className='font-bold text-sm xl:text-lg'>
+                  Selecione o algoritmo
+                </h2>
                 <Select onValueChange={(value) => setAlgorithm(value)}>
-                  <SelectTrigger className='w-52'>
+                  <SelectTrigger className='w-full xl:w-52 '>
                     <SelectValue placeholder='Algoritmo' />
                   </SelectTrigger>
                   <SelectContent>
@@ -165,17 +171,18 @@ const App: React.FC = () => {
               </div>
             </div>
             <Button
+              className='hidden xl:flex'
               disabled={!clickPosition || !boardSize || !algorithm}
               onClick={handleCLickStart}
             >
-              Iniciar
+              {started ? 'Reiniciar' : 'Iniciar'}
             </Button>
           </>
         ) : (
           <KnightLog moveHistory={knight?.getMoveHistory()} />
         )}
       </div>
-      <div className='flex flex-col items-center justify-center w-[550px]'>
+      <div className='flex flex-col items-center justify-center w-full xl:w-[550px]'>
         {handleAlert()}
         <ChessBoard
           board={board}
@@ -186,6 +193,14 @@ const App: React.FC = () => {
         />
         <p className='text-sm'>{`Tamanho do tabuleiro (${boardSize} X ${boardSize})`}</p>
       </div>
+
+      <Button
+        className='flex w-full max-w-lg  xl:hidden'
+        disabled={!clickPosition || !boardSize || !algorithm}
+        onClick={handleCLickStart}
+      >
+        {started ? 'Reiniciar' : 'Iniciar'}
+      </Button>
     </div>
   );
 };
