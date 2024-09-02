@@ -4,6 +4,7 @@ import { IChessNode } from './ChessNode';
 export interface IKnight {
   move(position: IChessNode): IChessNode;
   getPossibleMoves(): IChessNode[];
+  getPossibleMovesToString(): string;
   getMoveHistory(): IChessEdge[];
   getCurrentPosition(): IChessNode;
   isKnightTrapped(): boolean;

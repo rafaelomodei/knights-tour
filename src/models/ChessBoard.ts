@@ -55,9 +55,23 @@ export class ChessBoardModel implements IChessBoard {
     }
   }
 
-  // Método para obter o tabuleiro
   public getBoard(): IChessNode[][] {
     return this.board;
+  }
+
+  public getBoardToString(): string {
+    return this.board
+      .map((row) =>
+        row
+          .map((node) => {
+            const { x, y } = node.getPosition();
+            return `[${x},${y}]: ${
+              node.isVisited() ? 'visitada' : 'não visitada'
+            }`;
+          })
+          .join('\n')
+      )
+      .join('\n');
   }
 
   public getNodeAt({ x, y }: IPosition): IChessNode | null {

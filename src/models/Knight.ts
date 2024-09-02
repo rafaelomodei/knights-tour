@@ -59,6 +59,21 @@ export class KnightModel implements IKnight {
     return possibleMoves;
   }
 
+  public getPossibleMovesToString(): string {
+    const possibleMoves = this.getPossibleMoves();
+
+    if (possibleMoves.length === 0) {
+      return 'Não a possibilidade de movimentos';
+    }
+
+    return possibleMoves
+      .map((node) => {
+        const { x, y } = node.getPosition();
+        return `[${x},${y}]`;
+      })
+      .join('\n');
+  }
+
   public isKnightTrapped(): boolean {
     const possibleMoves = this.getPossibleMoves();
     const unvisitedNodes = this.board
