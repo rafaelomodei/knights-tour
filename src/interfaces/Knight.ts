@@ -8,4 +8,5 @@ export interface IKnight {
   getMoveHistory(): IChessEdge[];
   getCurrentPosition(): IChessNode;
   isKnightTrapped(): boolean;
+  getBestMoveByWarnsdorff(): IChessNode | null;
 }

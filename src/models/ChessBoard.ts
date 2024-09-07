@@ -1,6 +1,7 @@
 import { IChessNode, IPosition, NodePosition } from '@/interfaces/ChessNode';
 import { ChessNodeModel } from './ChessNode';
 import { IChessBoard } from '@/interfaces/ChessBoard';
+import { knightMoves } from './Knight';
 
 export class ChessBoardModel implements IChessBoard {
   private board: IChessNode[][];
@@ -53,6 +54,24 @@ export class ChessBoardModel implements IChessBoard {
         }
       }
     }
+  }
+
+  public getPossibleMovesFromNode(node: IChessNode): IChessNode[] {
+    const possibleMoves: IChessNode[] = [];
+
+    for (const move of knightMoves) {
+      const newPosition = {
+        x: node.getPosition().x + move.x,
+        y: node.getPosition().y + move.y,
+      };
+
+      const nextNode = this.getNodeAt({ x: newPosition.x, y: newPosition.y });
+      if (nextNode && !nextNode.isVisited()) {
+        possibleMoves.push(nextNode);
+      }
+    }
+
+    return possibleMoves;
   }
 
   public getBoard(): IChessNode[][] {

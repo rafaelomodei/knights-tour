@@ -90,6 +90,21 @@ const App: React.FC = () => {
       moveKnight();
     }
 
+    if (algorithm === 'BreadthFirstSearchWarnsdorff' && knight) {
+      const knightService = new KnightService(knight);
+
+      const moveKnight = () => {
+        if (!knight.isKnightTrapped()) {
+          knightService.moveKnightUsingWarnsdorff();
+          setPossibleMoves(knight.getPossibleMoves());
+
+          setTimeout(moveKnight, 500);
+        }
+      };
+
+      moveKnight();
+    }
+
     if (algorithm === 'gemini' && knight) {
       const moveKnight = async () => {
         if (knight.isKnightTrapped() || error) return;
@@ -195,6 +210,12 @@ const App: React.FC = () => {
                         <div className='flex gap-2  items-center'>
                           <BringToFront className='h-4 w-4' />{' '}
                           <p>Busca em largura</p>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value='BreadthFirstSearchWarnsdorff'>
+                        <div className='flex gap-2  items-center'>
+                          <BringToFront className='h-4 w-4' />{' '}
+                          <p>Busca em largura - Warnsdorff</p>
                         </div>
                       </SelectItem>
                       <SelectItem value='gemini'>

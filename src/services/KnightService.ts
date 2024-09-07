@@ -34,4 +34,23 @@ export class KnightService {
       return null;
     }
   }
+
+  public moveKnightUsingWarnsdorff(): IChessNode | null {
+    const bestMove = this.knight.getBestMoveByWarnsdorff();
+
+    if (bestMove) {
+      this.knight.move(bestMove);
+      console.log(
+        `Movendo o cavalo para: ${bestMove.getPosition().x} X ${
+          bestMove.getPosition().y
+        }`
+      );
+      return bestMove;
+    } else {
+      console.log(
+        'Não há mais movimentos válidos de acordo com a regra de Warnsdorff.'
+      );
+      return null;
+    }
+  }
 }
