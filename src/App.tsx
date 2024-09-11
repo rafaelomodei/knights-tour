@@ -215,7 +215,7 @@ const App: React.FC = () => {
                       <SelectItem value='BreadthFirstSearchWarnsdorff'>
                         <div className='flex gap-2  items-center'>
                           <BringToFront className='h-4 w-4' />{' '}
-                          <p>Busca em largura - Warnsdorff</p>
+                          <p>Heurística de Warnsdorff</p>
                         </div>
                       </SelectItem>
                       <SelectItem value='gemini'>
